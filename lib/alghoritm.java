@@ -26,13 +26,17 @@ class Alghoritm {
         List<String> tmpList = Arrays.asList(matrix);
         List<String> listOfChars = new ArrayList<>(new LinkedHashSet<>(tmpList));
         // TODO: Avoid prints
-        System.out.println(listOfChars);
+        // System.out.println(listOfChars);
 
         // building an bigrams
         List<String> bigrams = new ArrayList<>();
         bigrams = Helper.bigramSplit(input);
         // TODO: Avoid prints
-        System.out.println(bigrams);
+        // System.out.println(bigrams);
+
+        List<String> cipher = new ArrayList<>();
+        cipher = Helper.coding(listOfChars, bigrams);
+        System.out.println(cipher);
 
         return "";
     }
