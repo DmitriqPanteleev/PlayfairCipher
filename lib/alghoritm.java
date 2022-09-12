@@ -4,19 +4,19 @@ class Alghoritm {
 
     static public String toCode(String input) {
         // local variables
-        String keyWord = "JEWERLY";
+        String keyWord = "WHEATSON";
         String alphabet;
         String[] matrix;
 
         // building an alphabet
-        if (keyWord.contains("i") && keyWord.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPRSTUWXYZ";
-        } else if (keyWord.contains("i")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUWXYZ";
-        } else if (keyWord.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUWXYZ";
+        if (keyWord.contains("I") && keyWord.contains("J")) {
+            alphabet = "ABCDEFGHKLMNOPRSTUVWXYZ";
+        } else if (keyWord.contains("I")) {
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
+        } else if (keyWord.contains("J")) {
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
         } else {
-            alphabet = "ABCDEFGHIKLMNOPQQRSTUWXYZ";
+            alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
         }
 
         // building an coded alphabet without any dublicates
