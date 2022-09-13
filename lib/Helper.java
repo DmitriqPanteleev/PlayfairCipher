@@ -49,7 +49,7 @@ public class Helper {
                     peremen1 %= 5;
                 }
                 else if (peremen2 > 25){
-                    peremen2 %=5;
+                    peremen2 %= 5;
                 }
                 bigrams.set(i, listOfChars.get(peremen1));
                 bigrams.set(i+1, listOfChars.get(peremen2));
