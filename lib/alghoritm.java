@@ -10,13 +10,13 @@ class Alghoritm {
 
         // building an alphabet
         if (keyWord.contains("i") && keyWord.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPRSTUWXYZ";
+            alphabet = "ABCDEFGHKLMNOPRSTUVWXYZ";
         } else if (keyWord.contains("i")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUWXYZ";
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
         } else if (keyWord.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUWXYZ";
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
         } else {
-            alphabet = "ABCDEFGHIKLMNOPQQRSTUWXYZ";
+            alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
         }
 
         // building an coded alphabet without any dublicates
