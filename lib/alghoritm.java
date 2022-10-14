@@ -2,48 +2,42 @@ import java.util.*;
 
 class Alghoritm {
 
-    static public String toCode(String input) {
-        // local variables
-        String keyWord = "WHEATSON";
-        String alphabet;
-        String[] matrix;
-
-        // building an alphabet
-        if (keyWord.contains("i") && keyWord.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPRSTUVWXYZ";
-        } else if (keyWord.contains("i")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
-        } else if (keyWord.contains("j")) {
-<<<<<<< HEAD
-
-=======
->>>>>>> origin
-            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
-        } else {
-            alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
-        }
-
-        // building an coded alphabet without any dublicates
-        String tmpStr = keyWord + alphabet;
-        matrix = tmpStr.split("");
-
-        List<String> tmpList = Arrays.asList(matrix);
-        List<String> charsOfAlphabet = new ArrayList<>(new LinkedHashSet<>(tmpList));
-
-        // building an bigrams
-        List<String> bigrams = new ArrayList<>();
-        bigrams = Helper.bigramSplit(input);
-
+    static public String toCode(String Letter, String CodeWord) {
         // building an coded string
-        List<String> cipher = new ArrayList<>();
-        cipher = Helper.coding(charsOfAlphabet, bigrams);
-        System.out.println(cipher);
 
-        return "";
+        List<String> aphabet = Helper.codeAlphabet(CodeWord);
+
+        List<String> bigrams = Helper.bigrams(Letter, 1);
+
+        List<String> cipher = Helper.alghoritm(bigrams, aphabet, 1);
+
+        String tocode = String.join("", cipher);
+
+        return tocode;
     }
 
-    static public String toDecode(String input) {
-        // TODO: - func to decode
-        return "";
+    static public String toDecode(String Letter, String CodeWord) {
+
+        List<String> aphabet = Helper.codeAlphabet(CodeWord);
+
+        List<String> bigrams = Helper.bigrams(Letter, 1);
+
+        List<String> decipher = Helper.alghoritm(bigrams, aphabet, -1);
+
+        if(decipher.get(decipher.size()-1).equals("X") && decipher.size()%2 == 0){
+            decipher.remove(decipher.lastIndexOf("X"));
+        }
+
+        for (int i = 1; i < decipher.size(); i += 2) {
+            if (decipher.get(i+1).equals(decipher.get(i - 1)) && decipher.get(i).equals("X")) {
+                decipher.remove(i);
+            }
+            if(!decipher.contains("X")){
+                break;
+            }
+        }
+        String todecode = String.join("", decipher);
+    
+        return todecode;
     }
 }
