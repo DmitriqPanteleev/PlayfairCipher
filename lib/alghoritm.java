@@ -14,7 +14,10 @@ class Alghoritm {
         } else if (keyWord.contains("i")) {
             alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
         } else if (keyWord.contains("j")) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin
             alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
         } else {
             alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -25,18 +28,15 @@ class Alghoritm {
         matrix = tmpStr.split("");
 
         List<String> tmpList = Arrays.asList(matrix);
-        List<String> listOfChars = new ArrayList<>(new LinkedHashSet<>(tmpList));
-        // TODO: Avoid prints
-        // System.out.println(listOfChars);
+        List<String> charsOfAlphabet = new ArrayList<>(new LinkedHashSet<>(tmpList));
 
         // building an bigrams
         List<String> bigrams = new ArrayList<>();
         bigrams = Helper.bigramSplit(input);
-        // TODO: Avoid prints
-        // System.out.println(bigrams);
 
+        // building an coded string
         List<String> cipher = new ArrayList<>();
-        cipher = Helper.coding(listOfChars, bigrams);
+        cipher = Helper.coding(charsOfAlphabet, bigrams);
         System.out.println(cipher);
 
         return "";
