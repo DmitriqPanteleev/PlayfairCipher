@@ -1,11 +1,36 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Helper {
     // function which biuld list of bigrams
-    static ArrayList<String> bigramSplit(String input) {
+    static public List<String> codeAlphabet(String input) {
+
+        String alphabet;
+        String[] matrix;
+
+        // building an alphabet
+        if (input.contains("i") && input.contains("j")) {
+            alphabet = "ABCDEFGHKLMNOPRSTUVWXYZ";
+        } else if (input.contains("i")) {
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
+        } else if (input.contains("j")) {
+            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
+        } else {
+            alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
+        }
+
+        // building an coded alphabet without any dublicates
+        String tmpStr = input + alphabet;
+        matrix = tmpStr.split("");
+
+        List<String> tmpList = Arrays.asList(matrix);
+        List<String> charsOfAlphabet = new ArrayList<>(new LinkedHashSet<>(tmpList));
+        return charsOfAlphabet;
+    }
+
+    static ArrayList<String> bigrams(String input, int k) {
 
         // Example:
         // hellow -> he lx lo wx
@@ -24,19 +49,29 @@ public class Helper {
         if (Xset.size() % 2 != 0) {
             Xset.add("X");
         }
-
+        switch(k){
+        case 0:
+            for (int i = 0; i < Xset.size(); i+=2) {
+                String bigram = String.format("%s", Xset.get(i) + "" +Xset.get(i+1));
+                result.add(bigram);
+            }
+            break;
+        
+        case 1:
         for (int i = 0; i < Xset.size(); i++) {
             String bigram = String.format("%s", Xset.get(i));
             result.add(bigram);
         }
+            break;
+
+        default:
+            System.out.println("What");
+            break;
+        }
         return result;
     }
 
-    static ArrayList<String> coding(List<String> alphabet, List<String> bigrams) {
-
-        ArrayList<String> result = new ArrayList<String>();
-
-        // running throw bigrams
+    static public List<String> alghoritm (List<String> bigrams, List<String> alphabet, int l){
         for (int i = 0; i < bigrams.size(); i += 2) {
 
             // init first and second letters' indexes
@@ -46,31 +81,40 @@ public class Helper {
             // rule of common column
             if (Math.abs(firstLetter - secondLetter) % 5 == 0) {
                 // find out new indexes
-                firstLetter += 5;
-                secondLetter += 5;
+                firstLetter += 5 * l;
+                secondLetter += 5 * l;
 
                 // catching for overflow
-                if (firstLetter > 25) {
-                    firstLetter %= 5;
-                } else if (secondLetter > 25) {
-                    secondLetter %= 5;
+                if (firstLetter > 25 || firstLetter < 0){
+                    firstLetter -= 25 * l;;
+                } else if (secondLetter > 25 || secondLetter < 0) {
+                    secondLetter -= 25 * l;
                 }
-
                 // setting new coded letters
                 bigrams.set(i, alphabet.get(firstLetter));
                 bigrams.set(i + 1, alphabet.get(secondLetter));
-
             }
             // rule of common line
             else if (firstLetter / 5 == secondLetter / 5) {
                 //
-                if (firstLetter + 1 >= 5 * ((firstLetter) / 5 + 1)) {
-                    firstLetter -= 5;
-                } else if (secondLetter + 1 >= 5 * ((secondLetter) / 5 + 1)) {
-                    secondLetter -= 5;
+                switch(l){
+                    case -1:
+                        if (firstLetter + 1 == 5 * (firstLetter/ 5) + 1) {
+                            firstLetter += 5;
+                        } else if (secondLetter + 1 == 5 * (secondLetter / 5) + 1) {
+                            secondLetter += 5;
+                        }
+                        break;
+                    case 1:
+                        if (firstLetter + 1 == 5 * ((firstLetter) / 5 + 1)) {
+                            firstLetter -= 5;
+                        } else if (secondLetter + 1 == 5 * ((secondLetter) / 5 + 1)) {
+                            secondLetter -= 5;
+                        }
+                        break;
                 }
-                firstLetter += 1;
-                secondLetter += 1;
+                firstLetter += 1 * l;
+                secondLetter += 1 * l;
 
                 // setting new coded letters
                 bigrams.set(i, alphabet.get(firstLetter));
@@ -96,11 +140,8 @@ public class Helper {
                 bigrams.set(i, alphabet.get(secondLetter));
                 bigrams.set(i + 1, alphabet.get(firstLetter));
             }
+            
         }
-        for (int i = 0; i < bigrams.size(); i++) {
-            String cipher = String.format("%s", bigrams.get(i));
-            result.add(cipher);
-        }
-        return result;
+        return bigrams;
     }
 }
