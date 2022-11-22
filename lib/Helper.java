@@ -12,11 +12,11 @@ public class Helper {
 
         // building an alphabet
         if (input.contains("i") && input.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPRSTUVWXYZ";
+            alphabet = "ABCDEFGHIJKLMNOPRSTUVWXYZ";
         } else if (input.contains("i")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
+            alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
         } else if (input.contains("j")) {
-            alphabet = "ABCDEFGHKLMNOPQRSTUVWXYZ";
+            alphabet = "ABCDEFGHJKLMNOPQRSTUVWXYZ";
         } else {
             alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
         }
@@ -36,7 +36,8 @@ public class Helper {
         // hellow -> he lx lo wx
 
         // local data
-        String[] tmpStr = input.split("");
+        String tmp = input.replaceAll(" ", "");
+        String[] tmpStr = tmp.split("");
         ArrayList<String> result = new ArrayList<String>();
         List<String> Xset = Stream.of(tmpStr).collect(Collectors.toList());
 
@@ -49,29 +50,29 @@ public class Helper {
         if (Xset.size() % 2 != 0) {
             Xset.add("X");
         }
-        switch(k){
-        case 0:
-            for (int i = 0; i < Xset.size(); i+=2) {
-                String bigram = String.format("%s", Xset.get(i) + "" +Xset.get(i+1));
-                result.add(bigram);
-            }
-            break;
-        
-        case 1:
-        for (int i = 0; i < Xset.size(); i++) {
-            String bigram = String.format("%s", Xset.get(i));
-            result.add(bigram);
-        }
-            break;
+        switch (k) {
+            case 0:
+                for (int i = 0; i < Xset.size(); i += 2) {
+                    String bigram = String.format("%s", Xset.get(i) + "" + Xset.get(i + 1));
+                    result.add(bigram);
+                }
+                break;
 
-        default:
-            System.out.println("What");
-            break;
+            case 1:
+                for (int i = 0; i < Xset.size(); i++) {
+                    String bigram = String.format("%s", Xset.get(i));
+                    result.add(bigram);
+                }
+                break;
+
+            default:
+                System.out.println("What");
+                break;
         }
         return result;
     }
 
-    static public List<String> alghoritm (List<String> bigrams, List<String> alphabet, int l){
+    static public List<String> alghoritm(List<String> bigrams, List<String> alphabet, int l) {
         for (int i = 0; i < bigrams.size(); i += 2) {
 
             // init first and second letters' indexes
@@ -85,8 +86,8 @@ public class Helper {
                 secondLetter += 5 * l;
 
                 // catching for overflow
-                if (firstLetter > 25 || firstLetter < 0){
-                    firstLetter -= 25 * l;;
+                if (firstLetter > 25 || firstLetter < 0) {
+                    firstLetter -= 25 * l;
                 } else if (secondLetter > 25 || secondLetter < 0) {
                     secondLetter -= 25 * l;
                 }
@@ -97,9 +98,9 @@ public class Helper {
             // rule of common line
             else if (firstLetter / 5 == secondLetter / 5) {
                 //
-                switch(l){
+                switch (l) {
                     case -1:
-                        if (firstLetter + 1 == 5 * (firstLetter/ 5) + 1) {
+                        if (firstLetter + 1 == 5 * (firstLetter / 5) + 1) {
                             firstLetter += 5;
                         } else if (secondLetter + 1 == 5 * (secondLetter / 5) + 1) {
                             secondLetter += 5;
@@ -113,6 +114,7 @@ public class Helper {
                         }
                         break;
                 }
+
                 firstLetter += 1 * l;
                 secondLetter += 1 * l;
 
@@ -122,7 +124,6 @@ public class Helper {
             }
             // rule of rectangle
             else {
-                // TODO: - comments
                 // difference between the columns
                 int count = Math.abs((firstLetter / 5) - (secondLetter / 5));
                 //
@@ -140,7 +141,7 @@ public class Helper {
                 bigrams.set(i, alphabet.get(secondLetter));
                 bigrams.set(i + 1, alphabet.get(firstLetter));
             }
-            
+
         }
         return bigrams;
     }
